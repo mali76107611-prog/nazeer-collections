@@ -39,24 +39,30 @@
         .menu-item span { flex: 1; font-size: 0.95rem; font-weight: 400; }
         .menu-item .arrow { font-size: 14px; color: #ccc; }
 
-        /* Feedback Modal Style (Daraz Inspired) */
-        #feedback-page {
+        /* Full Screen Pages Style */
+        .full-page {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: white; z-index: 2000; overflow-y: auto;
         }
-        .fb-header { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; }
-        .fb-header i { font-size: 20px; margin-right: 15px; cursor: pointer; }
+        .page-header { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; background: white; position: sticky; top: 0; }
+        .page-header i { font-size: 20px; margin-right: 15px; cursor: pointer; color: #333; }
+        
+        /* Help Center Specific Styles */
+        .help-welcome { background: linear-gradient(to right, #f85606, #ff8c52); color: white; padding: 30px 20px; text-align: left; }
+        .help-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 20px; background: white; }
+        .help-item { text-align: center; padding: 10px 5px; }
+        .help-item i { font-size: 24px; color: var(--daraz-orange); margin-bottom: 8px; display: block; }
+        .help-item p { font-size: 0.65rem; color: #666; font-weight: 500; }
+        
+        .contact-box { margin: 20px; padding: 20px; border: 1px solid #eee; border-radius: 10px; display: flex; align-items: center; cursor: pointer; }
+        .contact-box i { font-size: 25px; color: var(--daraz-orange); margin-right: 15px; }
+        .contact-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .contact-info p { font-size: 0.75rem; color: #888; }
+
         .fb-body { padding: 20px; }
         .fb-body h3 { font-size: 1rem; margin-bottom: 15px; font-weight: 600; }
-        .fb-body textarea { 
-            width: 100%; height: 150px; padding: 15px; border: 1px solid #ddd; 
-            border-radius: 8px; resize: none; background: #fcfcfc; font-size: 0.9rem;
-        }
-        .fb-btn { 
-            background: var(--daraz-orange); color: white; width: 100%; 
-            padding: 15px; border: none; border-radius: 8px; margin-top: 20px; 
-            font-weight: 600; cursor: pointer;
-        }
+        .fb-body textarea { width: 100%; height: 150px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; resize: none; background: #fcfcfc; font-size: 0.9rem; }
+        .fb-btn { background: var(--daraz-orange); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; margin-top: 20px; font-weight: 600; cursor: pointer; }
 
         .status-banner { background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 0.85rem; border: 1px solid #ffeeba; }
         footer { text-align: center; padding: 40px 20px; color: #999; font-size: 0.8rem; }
@@ -104,12 +110,12 @@
             <span>Policies</span>
             <i class="fa fa-chevron-right arrow"></i>
         </div>
-        <div class="menu-item" onclick="openFeedback()">
+        <div class="menu-item" onclick="openPage('feedback-page')">
             <i class="fa fa-comment-dots"></i>
             <span>Feedback</span>
             <i class="fa fa-chevron-right arrow"></i>
         </div>
-        <div class="menu-item" onclick="alert('Delivery 7 din mein hogi. Gujrat se rabta karein.')">
+        <div class="menu-item" onclick="openPage('help-page')">
             <i class="fa fa-question-circle"></i>
             <span>Help</span>
             <i class="fa fa-chevron-right arrow"></i>
@@ -128,16 +134,49 @@
     </footer>
 </div>
 
-<div id="feedback-page">
-    <div class="fb-header">
-        <i class="fa fa-arrow-left" onclick="closeFeedback()"></i>
+<div id="help-page" class="full-page">
+    <div class="page-header">
+        <i class="fa fa-arrow-left" onclick="closePage('help-page')"></i>
+        <span style="font-weight: 600;">Help Center</span>
+    </div>
+    <div class="help-welcome">
+        <h2>Welcome</h2>
+        <p>to Nazeer Help Center</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.9;">Hi, how can we help?</p>
+    </div>
+    
+    <p style="padding: 15px 20px 5px; font-weight: 600; font-size: 0.9rem;">Self Service</p>
+    <div class="help-grid">
+        <div class="help-item"><i class="fa fa-truck"></i><p>Track Order</p></div>
+        <div class="help-item"><i class="fa fa-lock"></i><p>Reset Pass</p></div>
+        <div class="help-item"><i class="fa fa-wallet"></i><p>Wallet</p></div>
+        <div class="help-item"><i class="fa fa-times-circle"></i><p>Cancel</p></div>
+        <div class="help-item"><i class="fa fa-undo"></i><p>Return</p></div>
+        <div class="help-item"><i class="fa fa-credit-card"></i><p>Payment</p></div>
+        <div class="help-item"><i class="fa fa-map-marker-alt"></i><p>Address</p></div>
+        <div class="help-item"><i class="fa fa-user"></i><p>Profile</p></div>
+    </div>
+
+    <p style="padding: 10px 20px 5px; font-weight: 600; font-size: 0.9rem;">Still Need Help?</p>
+    <div class="contact-box" onclick="window.open('https://wa.me/923056234632')">
+        <i class="fa fa-headset"></i>
+        <div class="contact-info">
+            <h4>Contact Customer Care</h4>
+            <p>Direct Chat: 9AM - 9PM [Mon - Sun]</p>
+        </div>
+        <i class="fa fa-chevron-right" style="margin-left: auto; font-size: 12px; color: #ccc;"></i>
+    </div>
+</div>
+
+<div id="feedback-page" class="full-page">
+    <div class="page-header">
+        <i class="fa fa-arrow-left" onclick="closePage('feedback-page')"></i>
         <span style="font-weight: 600;">Feedback</span>
     </div>
     <div class="fb-body">
         <h3>Your suggestion matters. What can we improve on? *</h3>
         <textarea id="fb-text" placeholder="Aapki shikayat ya mashwara hamare liye ahem hai..."></textarea>
         <button class="fb-btn" onclick="sendFeedback()">SUBMIT FEEDBACK</button>
-        <p style="font-size: 0.75rem; color: #999; margin-top: 20px; text-align: center;">Team Nazeer Collections</p>
     </div>
 </div>
 
@@ -146,24 +185,19 @@
 </div>
 
 <script>
-    function openFeedback() {
-        document.getElementById('feedback-page').style.display = 'block';
+    function openPage(pageId) {
+        document.getElementById(pageId).style.display = 'block';
     }
-    function closeFeedback() {
-        document.getElementById('feedback-page').style.display = 'none';
+    function closePage(pageId) {
+        document.getElementById(pageId).style.display = 'none';
     }
     function sendFeedback() {
         const text = document.getElementById('fb-text').value;
-        if(text.trim() === "") {
-            alert("Meherbani karke kuch likhein!");
-            return;
-        }
-        const msg = `*NEW FEEDBACK*%0A*Message:* ${text}`;
-        window.open(`https://wa.me/923056234632?text=${msg}`);
-        closeFeedback();
+        if(text.trim() === "") { alert("Meherbani karke kuch likhein!"); return; }
+        window.open(`https://wa.me/923056234632?text=*FEEDBACK*%0A${text}`);
+        closePage('feedback-page');
     }
 </script>
 
 </body>
 </html>
-
