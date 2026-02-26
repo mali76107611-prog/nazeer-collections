@@ -18,7 +18,7 @@
         header { background: var(--daraz-orange); padding: 1.5rem 5%; color: white; text-align: center; }
         .logo { font-size: 1.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Login/Signup Section (As per your Screenshot) */
+        /* Login/Signup Section */
         .login-section { background: white; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; margin-bottom: 10px; }
         .welcome-text { font-size: 0.85rem; color: #333; }
         .login-btn { background: var(--daraz-orange); color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: 600; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; }
@@ -43,6 +43,8 @@
         .nav-item { text-align: center; color: #757575; cursor: pointer; flex: 1; text-decoration: none; }
         .nav-item i { font-size: 20px; display: block; margin-bottom: 2px; }
         .nav-item span { font-size: 0.7rem; }
+        
+        /* Orange color logic */
         .nav-item.active { color: var(--daraz-orange); }
 
         /* Page System */
@@ -130,15 +132,32 @@
 </div>
 
 <nav class="bottom-nav">
-    <div class="nav-item active" onclick="location.reload()"><i class="fa fa-home"></i><span>Home</span></div>
-    <div class="nav-item"><i class="fa fa-list"></i><span>Categories</span></div>
-    <div class="nav-item"><i class="fa fa-shopping-cart"></i><span>Cart</span></div>
-    <div class="nav-item" onclick="openPage('account-page')"><i class="fa fa-user"></i><span>Account</span></div>
+    <div class="nav-item active" onclick="updateNav(this); location.reload()"><i class="fa fa-home"></i><span>Home</span></div>
+    <div class="nav-item" onclick="updateNav(this); alert('Categories coming soon')"><i class="fa fa-list"></i><span>Categories</span></div>
+    <div class="nav-item" onclick="updateNav(this); alert('Cart is empty')"><i class="fa fa-shopping-cart"></i><span>Cart</span></div>
+    <div class="nav-item" onclick="updateNav(this); openPage('account-page')"><i class="fa fa-user"></i><span>Account</span></div>
 </nav>
 
 <script>
+    // Ye function sirf color change karega, functions ko nahi chhedega
+    function updateNav(element) {
+        let items = document.querySelectorAll('.nav-item');
+        items.forEach(item => item.classList.remove('active'));
+        element.classList.add('active');
+    }
+
     function openPage(pageId) { document.getElementById(pageId).style.display = 'block'; }
-    function closePage(pageId) { document.getElementById(pageId).style.display = 'none'; if(pageId==='account-page') closeDropdown(); }
+    
+    function closePage(pageId) { 
+        document.getElementById(pageId).style.display = 'none'; 
+        if(pageId==='account-page') {
+            closeDropdown();
+            // Jab account band ho to Home ko orange kar do
+            let items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+            items[0].classList.add('active');
+        }
+    }
     
     function toggleDropdown(event) {
         event.stopPropagation();
